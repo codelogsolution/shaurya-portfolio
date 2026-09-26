@@ -1,0 +1,10 @@
+{
+  "name": "ai-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev:web": "pnpm --filter web dev",
+    "dev:server": "pnpm --filter server dev",
+    "build": "pnpm --recursive build"
+  }
+}
