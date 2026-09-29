@@ -1,39 +1,75 @@
 export const skills = {
-  frontend: [
+  mobileDevelopment: [
     "React Native",
-    "React.js",
-    "JavaScript",
+    "JavaScript (ES6+)",
     "TypeScript",
-    "HTML",
-    "CSS",
-    "Tailwind CSS",
+    "Redux Toolkit",
+    "Redux-Saga",
+    "Redux-Thunk",
+    "React Hooks",
+    "Native Modules",
+    "Push Notifications",
+    "Deep Linking",
+    "Offline Storage",
+    "Socket.IO",
+    "Geolocation & Maps",
+    "Biometric Authentication",
+    "Pen Testing",
+    "Native Bridging",
   ],
 
-  stateManagement: [
-    "Redux",
-    "Redux Toolkit",
-    "React Query",
+  frontend: [
+    "ReactJS",
+    "JavaScript (ES6+)",
+    "TypeScript",
+    "React Hooks",
+    "Component-Based Architecture",
+    "Tailwind CSS",
+    "Bootstrap",
+    "Responsive Web Design",
   ],
 
   backend: [
-    "Node.js",
-    "Express.js",
-    "MongoDB",
+    "Node.js (Basic)",
+    "REST API Concepts",
+    "MongoDB (Basic)",
+  ],
+
+  firebaseAndData: [
+    "Firebase Firestore",
+    "Firebase Authentication",
+    "Firebase Realtime Database",
+    "Firebase Cloud Messaging",
+    "Firebase Push Notifications",
     "REST APIs",
   ],
 
-  testingAndDevOps: [
-    "Jest",
-    "GitHub",
-    "Docker",
-    "CI/CD",
+  cicd: [
+    "CI/CD Concepts (Basic)",
+    "GitHub Actions (Basic)",
+    "Fastlane (Basic)",
   ],
 
-  aiAndEmergingTech: [
-    "RAG",
-    "LangChain",
-    "LangGraph",
-    "AI Agents",
-    "Vector Databases",
+  deployment: [
+    "Google Play Store",
+    "Apple App Store",
+    "Build Signing",
+    "Versioning",
+    "Store Listing",
+    "Submission & Review Process",
+    "Release Management",
+  ],
+
+  toolsAndPractices: [
+    "Git",
+    "GitHub",
+    "Branching",
+    "Merge",
+    "Rebase",
+    "Pull Requests",
+    "Visual Studio Code",
+    "Google Analytics",
+    "Agile / Scrum",
+    "Code Reviews",
   ],
 } as const;

@@ -4,8 +4,7 @@ export const profile = {
   experience: "5.8+ years",
   location: "India",
 
-  summary:
-    "Senior React Native developer with 5.8+ years of experience building mobile applications for Android and iOS. Experienced in React.js web development, JavaScript, TypeScript, Redux, REST APIs, and modern frontend technologies.",
+  summary: "with 5.8+ years of experience delivering production-grade cross-platform mobile applications for Android and iOS. Specialized in React Native, JavaScript, TypeScript, Redux Toolkit, Redux-Saga, Firebase, REST API integration, push notifications, native integrations, and mobile release management. Experienced in building applications end-to-end—from architecture and feature development to production releases on the App Store and Google Play—with hands-on ReactJS web development experience and a strong focus on scalable, reliable, and user-focused applications.",
 
   career: {
     startingRole: "React Native Developer",
@@ -36,5 +35,6 @@ contact: {
   email: "shaurya-aktu@gmail.com",
   linkedin: "https://www.linkedin.com/in/shaurya-yadav15",
   github: "https://github.com/codelogsolution",
+  leetcode: "https://leetcode.com/u/codelogsolution_leet/",
 },
 } as const;

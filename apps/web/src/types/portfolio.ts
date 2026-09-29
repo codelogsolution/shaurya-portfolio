@@ -17,23 +17,28 @@ export type Profile = {
     email: string;
     linkedin: string;
     github: string;
+    leetcode: string;
   };
 };
 
 export type Skills = {
+  mobileDevelopment: string[];
   frontend: string[];
-  stateManagement: string[];
   backend: string[];
-  testingAndDevOps: string[];
-  aiAndEmergingTech: string[];
+  firebaseAndData: string[];
+  cicd: string[];
+  deployment: string[];
+  toolsAndPractices: string[];
 };
 
 export type Project = {
   id: string;
+  number: string;
   title: string;
   description: string;
-  technologies: string[];
   category: string;
+  highlights: string[];
+  technologies: string[];
   status: string;
   githubUrl?: string;
   liveUrl?: string;

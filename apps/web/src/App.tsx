@@ -64,9 +64,9 @@ function App() {
 
         <SkillsSection skills={skills} />
 
-        <ProjectsSection projects={projects} />
-
         <ExperienceSection experience={experience} />
+
+        <ProjectsSection projects={projects} />
 
         <ContactSection profile={profile} />
       </main>

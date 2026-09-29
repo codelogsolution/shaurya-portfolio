@@ -182,3 +182,86 @@
     border-right-color: var(--border);
   }
 }
+
+
+/* ================================
+   Premium Glassmorphism
+================================ */
+
+.glass-panel {
+  background: rgb(15 23 42 / 0.55);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    0 20px 50px rgb(0 0 0 / 0.18),
+    inset 0 1px 0 rgb(255 255 255 / 0.04);
+}
+
+.glass-panel-hover {
+  transition:
+    transform 300ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease,
+    background 300ms ease;
+}
+
+.glass-panel-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgb(34 211 238 / 0.25);
+  background: rgb(15 23 42 / 0.68);
+  box-shadow:
+    0 24px 60px rgb(0 0 0 / 0.28),
+    0 0 30px rgb(34 211 238 / 0.06),
+    inset 0 1px 0 rgb(255 255 255 / 0.06);
+}
+
+/* Subtle glow */
+.glow-cyan {
+  box-shadow:
+    0 0 40px rgb(34 211 238 / 0.08);
+}
+
+/* Glass highlight */
+.glass-highlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-highlight::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.06),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 700ms ease;
+  pointer-events: none;
+}
+
+.glass-highlight:hover::before {
+  left: 150%;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .glass-panel-hover:hover {
+    transform: none;
+  }
+}

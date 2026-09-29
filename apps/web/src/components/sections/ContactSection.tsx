@@ -64,6 +64,18 @@ const ContactSection = ({ profile }: ContactSectionProps) => {
                             <ExternalLink size={16} />
                         </a>
                     )}
+                    {profile.contact.leetcode && (
+                        <a
+                            href={profile.contact.leetcode}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-5 py-3 text-slate-200 transition hover:border-cyan-400 hover:text-cyan-400"
+                        >
+                            <span className="font-bold">LC</span>
+                            Leetcode
+                            <ExternalLink size={16} />
+                        </a>
+                    )}
                 </div>
             </div>
         </section>
