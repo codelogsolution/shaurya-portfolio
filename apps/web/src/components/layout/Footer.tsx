@@ -2,9 +2,9 @@ import { ArrowUp } from "lucide-react";
 
 import Marquee from "../ui/Marquee";
 
-const Footer = () => {
-  const year = new Date().getFullYear();
+const CURRENT_YEAR = new Date().getFullYear();
 
+const Footer = () => {
   return (
     <footer className="relative overflow-hidden border-t border-hairline/10 bg-ink">
       {/* Giant outlined name marquee */}
@@ -20,7 +20,7 @@ const Footer = () => {
       <div className="border-t border-hairline/10 px-6 py-7 lg:px-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
           <p className="text-sm text-muted">
-            © {year} Shaurya Yadav. All rights reserved.
+            © {CURRENT_YEAR} Shaurya Yadav. All rights reserved.
           </p>
 
           <p className="text-sm text-muted/70">

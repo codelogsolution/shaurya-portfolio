@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { AnimatePresence, MotionConfig } from "motion/react";
 
 import { usePortfolio } from "./hooks/usePortfolio";
@@ -20,11 +20,12 @@ import Navbar from "./components/layout/Navbar";
 function App() {
   const { profile, skills, projects, experience } = usePortfolio();
   const [introDone, setIntroDone] = useState(false);
+  const handleIntroComplete = useCallback(() => setIntroDone(true), []);
 
   return (
     <MotionConfig reducedMotion="user">
       <AnimatePresence>
-        {!introDone && <Preloader onComplete={() => setIntroDone(true)} />}
+        {!introDone && <Preloader onComplete={handleIntroComplete} />}
       </AnimatePresence>
 
       <CursorGlow />

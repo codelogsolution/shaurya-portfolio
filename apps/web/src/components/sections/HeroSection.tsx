@@ -4,12 +4,15 @@ import { ArrowDown, ArrowUpRight, MapPin } from "lucide-react";
 import type { Profile } from "../../types/portfolio";
 import Counter from "../ui/Counter";
 import Magnetic from "../ui/Magnetic";
+import PhoneMockup from "../ui/PhoneMockup";
 import ScrambleText from "../ui/ScrambleText";
 
 type HeroSectionProps = {
   profile: Profile;
   start: boolean;
 };
+
+const CURRENT_YEAR = new Date().getFullYear();
 
 const ROLES = ["React Native Developer", "React.js Engineer", "AI Explorer"];
 
@@ -49,7 +52,7 @@ const HeroSection = ({ profile, start }: HeroSectionProps) => {
       {/* Vertical side label */}
       <div className="absolute right-6 top-1/2 hidden -translate-y-1/2 rotate-90 lg:block">
         <span className="font-display text-[11px] uppercase tracking-[0.5em] text-muted/60">
-          Portfolio — ©{new Date().getFullYear()}
+          Portfolio — ©{CURRENT_YEAR}
         </span>
       </div>
 
@@ -73,10 +76,10 @@ const HeroSection = ({ profile, start }: HeroSectionProps) => {
         {/* Name — kinetic editorial type */}
         <motion.h1
           variants={item}
-          className="font-display text-[clamp(3.4rem,11vw,9rem)] font-semibold uppercase leading-[0.92] tracking-tight"
+          className="font-display text-[clamp(3.4rem,11vw,9rem)] font-semibold uppercase leading-[0.92] tracking-tight xl:text-[clamp(3.4rem,8vw,7rem)]"
         >
-          <span className="block">{profile.name.split(" ")[0]}</span>
-          <span className="text-outline block">
+          <span className="block w-fit">{profile.name.split(" ")[0]}</span>
+          <span className="text-outline block w-fit">
             {profile.name.split(" ").slice(1).join(" ")}
           </span>
         </motion.h1>
@@ -155,6 +158,9 @@ const HeroSection = ({ profile, start }: HeroSectionProps) => {
             </div>
           ))}
         </motion.div>
+
+        {/* Floating phone mockup — portfolio as a mini RN app (desktop) */}
+        <PhoneMockup />
       </motion.div>
 
       {/* Scroll cue */}

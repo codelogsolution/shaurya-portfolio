@@ -32,7 +32,7 @@ export const profile = {
   ],
 
 contact: {
-  email: "shaurya-aktu@gmail.com",
+  email: "shaurya.aktu@gmail.com",
   linkedin: "https://www.linkedin.com/in/shaurya-yadav15",
   github: "https://github.com/codelogsolution",
   leetcode: "https://leetcode.com/u/codelogsolution_leet/",
