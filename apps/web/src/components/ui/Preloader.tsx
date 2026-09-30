@@ -49,12 +49,12 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
         <span className="font-display text-7xl font-semibold tabular-nums text-paper sm:text-8xl">
           {count}
         </span>
-        <span className="font-display text-2xl font-medium text-accent">
+        <span className="font-display text-2xl font-medium text-accent-text">
           %
         </span>
       </div>
 
-      <div className="mt-8 h-px w-48 overflow-hidden bg-white/10 sm:w-64">
+      <div className="mt-8 h-px w-48 overflow-hidden bg-hairline/10 sm:w-64">
         <div
           className="h-full bg-accent transition-[width] duration-100 ease-linear"
           style={{ width: `${count}%` }}

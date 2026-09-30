@@ -10,7 +10,7 @@ type AboutSectionProps = {
 };
 
 const card =
-  "rounded-3xl border border-white/10 bg-ink-2 p-7 sm:p-9 h-full transition-colors duration-300 hover:border-white/20";
+  "rounded-3xl border border-hairline/10 bg-ink-2 p-7 sm:p-9 h-full transition-colors duration-300 hover:border-hairline/20";
 
 const AboutSection = ({ profile }: AboutSectionProps) => {
   return (
@@ -25,7 +25,7 @@ const AboutSection = ({ profile }: AboutSectionProps) => {
           title={
             <>
               Engineer by trade,{" "}
-              <span className="font-serif text-accent italic">craftsman</span>{" "}
+              <span className="font-serif text-accent-text italic">craftsman</span>{" "}
               by choice
             </>
           }
@@ -44,12 +44,12 @@ const AboutSection = ({ profile }: AboutSectionProps) => {
               <div className={card}>
                 <LayoutGrid
                   size={22}
-                  className="mb-6 text-accent"
+                  className="mb-6 text-accent-text"
                   aria-hidden="true"
                 />
                 <h3 className="font-display text-2xl font-semibold leading-snug text-paper sm:text-3xl">
                   I build mobile experiences that feel{" "}
-                  <span className="text-accent">native, fast</span> and
+                  <span className="text-accent-text">native, fast</span> and
                   reliable.
                 </h3>
                 <p className="mt-5 max-w-xl leading-8 text-muted">
@@ -62,7 +62,7 @@ const AboutSection = ({ profile }: AboutSectionProps) => {
                   {profile.skills.slice(0, 6).map((tech) => (
                     <span
                       key={tech}
-                      className="rounded-full border border-white/10 px-3.5 py-1.5 text-xs font-medium text-paper/80"
+                      className="rounded-full border border-hairline/10 px-3.5 py-1.5 text-xs font-medium text-paper/80"
                     >
                       {tech}
                     </span>
@@ -117,10 +117,10 @@ const AboutSection = ({ profile }: AboutSectionProps) => {
           >
             <SpotlightCard className="h-full">
               <div className={`${card} flex flex-col justify-between`}>
-                <Rocket size={22} className="text-accent" aria-hidden="true" />
+                <Rocket size={22} className="text-accent-text" aria-hidden="true" />
                 <div className="mt-10">
                   <p className="font-display text-5xl font-semibold text-paper sm:text-6xl">
-                    10<span className="text-accent">+</span>
+                    10<span className="text-accent-text">+</span>
                   </p>
                   <p className="mt-2 text-sm leading-6 text-muted">
                     apps shipped across Play Store &amp; App Store
@@ -146,7 +146,7 @@ const AboutSection = ({ profile }: AboutSectionProps) => {
               <div className={`${card} flex flex-col`}>
                 <Compass
                   size={22}
-                  className="mb-6 text-accent"
+                  className="mb-6 text-accent-text"
                   aria-hidden="true"
                 />
                 <h3 className="font-display text-lg font-semibold text-paper">
@@ -174,7 +174,7 @@ const AboutSection = ({ profile }: AboutSectionProps) => {
           >
             <SpotlightCard className="h-full">
               <div className={`${card} flex flex-col justify-between`}>
-                <MapPin size={22} className="text-accent" aria-hidden="true" />
+                <MapPin size={22} className="text-accent-text" aria-hidden="true" />
                 <div className="mt-10">
                   <p className="font-display text-2xl font-semibold text-paper">
                     {profile.location}

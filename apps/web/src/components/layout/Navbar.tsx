@@ -2,6 +2,8 @@ import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
+import ThemeToggle from "../ui/ThemeToggle";
+
 const navItems = [
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
@@ -90,7 +92,7 @@ const Navbar = () => {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-auto relative z-10 flex w-full max-w-3xl items-center justify-between rounded-full border border-white/10 bg-ink/70 py-2.5 pl-5 pr-2.5 backdrop-blur-xl"
+        className="pointer-events-auto relative z-10 flex w-full max-w-3xl items-center justify-between rounded-full border border-hairline/10 bg-ink/70 py-2.5 pl-5 pr-2.5 backdrop-blur-xl"
       >
         {/* Logo */}
         <a
@@ -135,6 +137,11 @@ const Navbar = () => {
           })}
         </div>
 
+        {/* Theme toggle (desktop) */}
+        <div className="hidden md:block">
+          <ThemeToggle />
+        </div>
+
         {/* Desktop CTA */}
         <a
           href="#contact"
@@ -142,21 +149,24 @@ const Navbar = () => {
           className={`hidden rounded-full px-4 py-2 text-sm transition-colors md:block ${
             activeSection === "#contact"
               ? "bg-accent text-accent-ink"
-              : "border border-white/15 text-paper hover:border-accent/60 hover:text-accent"
+              : "border border-hairline/15 text-paper hover:border-accent/60 hover:text-accent-text"
           }`}
         >
           Let's Talk
         </a>
 
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          onClick={() => setIsMenuOpen((open) => !open)}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-paper md:hidden"
-        >
-          {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
-        </button>
+        {/* Mobile actions */}
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setIsMenuOpen((open) => !open)}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-hairline/10 text-paper"
+          >
+            {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
       </motion.nav>
 
       {/* Mobile fullscreen menu */}
@@ -193,8 +203,8 @@ const Navbar = () => {
                     closed: { opacity: 0, y: 24 },
                   }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className={`flex items-baseline gap-4 border-b border-white/5 py-4 ${
-                    activeSection === item.href ? "text-accent" : "text-paper"
+                  className={`flex items-baseline gap-4 border-b border-hairline/5 py-4 ${
+                    activeSection === item.href ? "text-accent-text" : "text-paper"
                   }`}
                 >
                   <span className="font-display text-xs text-muted">

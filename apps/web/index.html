@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -10,6 +10,30 @@
       content="Senior React Native Developer with 5.8+ years building production-grade cross-platform apps for Android & iOS. TypeScript, Redux, Firebase — now exploring AI engineering."
     />
     <meta name="theme-color" content="#07070b" />
+    <script>
+      // Resolve theme before first paint (prevents flash): stored choice → system preference → dark default.
+      (function () {
+        try {
+          var stored = localStorage.getItem("portfolio-theme");
+          var theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: light)").matches
+                ? "light"
+                : "dark";
+          document.documentElement.dataset.theme = theme;
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) {
+            meta.setAttribute(
+              "content",
+              theme === "light" ? "#f4f3ec" : "#07070b"
+            );
+          }
+        } catch (error) {
+          /* storage blocked — keep the dark default */
+        }
+      })();
+    </script>
     <meta property="og:title" content="Shaurya Yadav — Senior React Native Developer" />
     <meta
       property="og:description"

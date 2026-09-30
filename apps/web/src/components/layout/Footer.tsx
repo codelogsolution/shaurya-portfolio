@@ -6,7 +6,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-ink">
+    <footer className="relative overflow-hidden border-t border-hairline/10 bg-ink">
       {/* Giant outlined name marquee */}
       <div className="select-none py-10 sm:py-14" aria-hidden="true">
         <Marquee duration={42} gap="0rem">
@@ -17,7 +17,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10 px-6 py-7 lg:px-8">
+      <div className="border-t border-hairline/10 px-6 py-7 lg:px-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
           <p className="text-sm text-muted">
             © {year} Shaurya Yadav. All rights reserved.
@@ -29,10 +29,10 @@ const Footer = () => {
 
           <a
             href="#home"
-            className="group inline-flex items-center gap-2 text-sm text-paper transition-colors hover:text-accent"
+            className="group inline-flex items-center gap-2 text-sm text-paper transition-colors hover:text-accent-text"
           >
             Back to top
-            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-accent-ink">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-hairline/15 transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-accent-ink">
               <ArrowUp size={14} />
             </span>
           </a>

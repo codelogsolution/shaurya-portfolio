@@ -49,7 +49,7 @@ const HeroSection = ({ profile, start }: HeroSectionProps) => {
       {/* Vertical side label */}
       <div className="absolute right-6 top-1/2 hidden -translate-y-1/2 rotate-90 lg:block">
         <span className="font-display text-[11px] uppercase tracking-[0.5em] text-muted/60">
-          Portfolio — ©2026
+          Portfolio — ©{new Date().getFullYear()}
         </span>
       </div>
 
@@ -61,7 +61,7 @@ const HeroSection = ({ profile, start }: HeroSectionProps) => {
       >
         {/* Availability pill */}
         <motion.div variants={item} className="mb-8">
-          <span className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-paper/80 backdrop-blur">
+          <span className="inline-flex items-center gap-2.5 rounded-full border border-hairline/10 bg-hairline/5 px-4 py-2 text-sm text-paper/80 backdrop-blur">
             <span className="relative flex h-2 w-2">
               <span className="ping-soft absolute inline-flex h-full w-full rounded-full bg-accent" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
@@ -89,10 +89,10 @@ const HeroSection = ({ profile, start }: HeroSectionProps) => {
           <span className="text-muted">Senior</span>
           <ScrambleText
             words={ROLES}
-            className="font-display font-medium text-accent"
+            className="font-display font-medium text-accent-text"
           />
           <span className="inline-flex items-center gap-1.5 text-sm text-muted">
-            <MapPin size={14} className="text-accent" />
+            <MapPin size={14} className="text-accent-text" />
             {profile.location}
           </span>
         </motion.div>
@@ -123,7 +123,7 @@ const HeroSection = ({ profile, start }: HeroSectionProps) => {
           <Magnetic>
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wide text-paper transition-colors hover:border-accent/60 hover:text-accent"
+              className="group inline-flex items-center gap-2 rounded-full border border-hairline/15 px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wide text-paper transition-colors hover:border-accent/60 hover:text-accent-text"
             >
               Get in Touch
               <ArrowUpRight
@@ -136,7 +136,7 @@ const HeroSection = ({ profile, start }: HeroSectionProps) => {
         {/* Stats row */}
         <motion.div
           variants={item}
-          className="mt-14 grid grid-cols-3 gap-6 border-t border-white/10 pt-7 sm:max-w-xl"
+          className="mt-14 grid grid-cols-3 gap-6 border-t border-hairline/10 pt-7 sm:max-w-xl"
         >
           {[
             { value: 5.8, suffix: "+", label: "Years Experience" },

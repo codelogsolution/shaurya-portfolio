@@ -45,12 +45,12 @@ const ExperienceItem = ({
         className={`absolute left-0 top-9 h-4 w-4 rounded-full border-2 bg-ink ${
           isCurrent
             ? "border-accent shadow-[0_0_16px_rgba(200,245,66,0.5)]"
-            : "border-white/25"
+            : "border-hairline/25"
         }`}
       />
 
       <SpotlightCard>
-        <article className="rounded-3xl border border-white/10 bg-ink-2 p-7 transition-colors duration-300 hover:border-white/20 sm:p-9">
+        <article className="rounded-3xl border border-hairline/10 bg-ink-2 p-7 transition-colors duration-300 hover:border-hairline/20 sm:p-9">
           {/* Header */}
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
@@ -61,12 +61,12 @@ const ExperienceItem = ({
             </div>
 
             <div className="flex flex-col items-end gap-2.5">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3.5 py-1.5 text-xs text-paper/80">
-                <CalendarDays size={13} className="text-accent" />
+              <span className="inline-flex items-center gap-2 rounded-full border border-hairline/10 px-3.5 py-1.5 text-xs text-paper/80">
+                <CalendarDays size={13} className="text-accent-text" />
                 {item.duration}
               </span>
               {isCurrent && (
-                <span className="inline-flex items-center gap-2 text-xs font-medium text-accent">
+                <span className="inline-flex items-center gap-2 text-xs font-medium text-accent-text">
                   <span className="ping-soft relative flex h-1.5 w-1.5">
                     <span className="ping-soft absolute inline-flex h-full w-full rounded-full bg-accent" />
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
@@ -94,7 +94,7 @@ const ExperienceItem = ({
             <button
               type="button"
               onClick={() => setExpanded((previous) => !previous)}
-              className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent/80"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent-text transition-colors hover:text-accent-text/80"
             >
               {expanded ? "Show less" : `+ ${hiddenCount} more`}
               <ChevronDown
@@ -105,11 +105,11 @@ const ExperienceItem = ({
           )}
 
           {/* Technologies */}
-          <div className="mt-7 flex flex-wrap gap-2 border-t border-white/5 pt-6">
+          <div className="mt-7 flex flex-wrap gap-2 border-t border-hairline/5 pt-6">
             {item.technologies.map((technology) => (
               <span
                 key={technology}
-                className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-paper/70 transition-colors duration-200 hover:border-accent/50 hover:text-accent"
+                className="rounded-full border border-hairline/10 px-3 py-1.5 text-xs text-paper/70 transition-colors duration-200 hover:border-accent/50 hover:text-accent-text"
               >
                 {technology}
               </span>
@@ -121,7 +121,7 @@ const ExperienceItem = ({
               href={website}
               target="_blank"
               rel="noreferrer"
-              className="mt-6 inline-flex items-center gap-1 text-xs font-medium text-muted transition-colors hover:text-accent"
+              className="mt-6 inline-flex items-center gap-1 text-xs font-medium text-muted transition-colors hover:text-accent-text"
             >
               Official company website
               <ArrowUpRight size={13} />
@@ -153,7 +153,7 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
           title={
             <>
               Building products{" "}
-              <span className="font-serif text-accent italic">
+              <span className="font-serif text-accent-text italic">
                 that people rely on
               </span>
             </>
@@ -165,7 +165,7 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
           {/* Static rail */}
           <span
             aria-hidden="true"
-            className="absolute bottom-3 left-[7px] top-3 w-px bg-white/10"
+            className="absolute bottom-3 left-[7px] top-3 w-px bg-hairline/10"
           />
 
           {/* Scroll-growing rail */}

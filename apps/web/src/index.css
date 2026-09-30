@@ -11,9 +11,11 @@
   --color-ink-3: #12121a;
   --color-paper: #f4f4ef;
   --color-muted: #9a9aa5;
-  --color-accent: #c8f542;
+  --color-accent: #a8d523;
   --color-accent-ink: #101503;
-  --color-ai: #8b7cff;
+  --color-ai: #60bf20;
+  --color-hairline: #ffffff;
+  --color-accent-text: #c8f542;
 
   --font-display: "Clash Display", "Space Grotesk", ui-sans-serif, system-ui,
     sans-serif;
@@ -22,12 +24,50 @@
 }
 
 :root {
-  color: #f4f4ef;
-  background: #07070b;
+  color-scheme: dark;
+  color: var(--color-paper);
+  background: var(--color-ink);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   --navbar-height: 104px;
+
+  /* Theme-scoped effect tokens (dark defaults) */
+  --grid-line: rgb(255 255 255 / 0.035);
+  --outline-stroke: rgb(244 244 239 / 0.55);
+  --outline-stroke-accent: rgb(200 245 66 / 0.75);
+  --outline-stroke-faint: rgb(244 244 239 / 0.14);
+  --scrollbar-thumb: #26262f;
+  --spotlight-color: rgb(200 245 66 / 0.08);
+  --card-shadow: 0 25px 60px -15px rgb(0 0 0 / 0.6);
+  --grain-opacity: 0.05;
+}
+
+/* ============================================================
+   LIGHT THEME — "Paper & Lime"
+   Overrides the same semantic tokens on <html data-theme="light">;
+   every utility (bg-ink, text-paper, border-hairline/10, ...)
+   re-resolves automatically. Dark stays the default.
+   ============================================================ */
+[data-theme="light"] {
+  color-scheme: light;
+  --color-ink: #f4f3ec;
+  --color-ink-2: #eae8dd;
+  --color-ink-3: #e0ddcf;
+  --color-paper: #121218;
+  --color-muted: #5b5c64;
+  --color-hairline: #121218;
+  --color-accent-text: #4d7006;
+  --color-ai: #5b3fd6;
+
+  --grid-line: rgb(18 18 24 / 0.05);
+  --outline-stroke: rgb(18 18 24 / 0.6);
+  --outline-stroke-accent: rgb(77 112 6 / 0.75);
+  --outline-stroke-faint: rgb(18 18 24 / 0.14);
+  --scrollbar-thumb: #c9c6b8;
+  --spotlight-color: rgb(123 168 12 / 0.15);
+  --card-shadow: 0 24px 60px -24px rgb(18 18 24 / 0.22);
+  --grain-opacity: 0.06;
 }
 
 html {
@@ -39,9 +79,12 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #07070b;
+  background: var(--color-ink);
   font-family: var(--font-body);
   overflow-x: hidden;
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease;
 }
 
 body.intro-lock {
@@ -67,10 +110,10 @@ a {
   width: 9px;
 }
 ::-webkit-scrollbar-track {
-  background: #07070b;
+  background: var(--color-ink);
 }
 ::-webkit-scrollbar-thumb {
-  background: #26262f;
+  background: var(--scrollbar-thumb);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -83,7 +126,7 @@ a {
   inset: 0;
   z-index: 90;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: var(--grain-opacity);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 256px 256px;
 }
@@ -128,8 +171,8 @@ a {
 /* ---------- Blueprint grid lines ---------- */
 .grid-lines {
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: radial-gradient(
     ellipse 90% 70% at 50% 30%,
@@ -146,17 +189,17 @@ a {
 /* ---------- Outlined display text ---------- */
 .text-outline {
   color: transparent;
-  -webkit-text-stroke: 1.5px rgb(244 244 239 / 0.55);
+  -webkit-text-stroke: 1.5px var(--outline-stroke);
 }
 
 .text-outline-accent {
   color: transparent;
-  -webkit-text-stroke: 1.5px rgb(200 245 66 / 0.75);
+  -webkit-text-stroke: 1.5px var(--outline-stroke-accent);
 }
 
 .text-outline-faint {
   color: transparent;
-  -webkit-text-stroke: 1px rgb(244 244 239 / 0.14);
+  -webkit-text-stroke: 1px var(--outline-stroke-faint);
 }
 
 /* ---------- Marquee ---------- */
@@ -208,6 +251,11 @@ a {
   }
 }
 
+/* ---------- Theme-aware card elevation ---------- */
+.elev-card {
+  box-shadow: var(--card-shadow);
+}
+
 /* ---------- Spotlight card ---------- */
 .spotlight-card {
   position: relative;
@@ -223,7 +271,7 @@ a {
   transition: opacity 0.45s ease;
   background: radial-gradient(
     340px circle at var(--mx, 50%) var(--my, 50%),
-    rgb(200 245 66 / 0.08),
+    var(--spotlight-color),
     transparent 65%
   );
   pointer-events: none;

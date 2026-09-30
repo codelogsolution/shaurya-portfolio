@@ -24,19 +24,19 @@ const ProjectCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-ink-2 shadow-2xl shadow-black/60"
+      className="group relative overflow-hidden rounded-[2rem] border border-hairline/10 bg-ink-2 elev-card"
     >
       {/* Top strip */}
-      <div className="flex items-center justify-between gap-4 border-b border-white/10 px-6 py-4 sm:px-9">
+      <div className="flex items-center justify-between gap-4 border-b border-hairline/10 px-6 py-4 sm:px-9">
         <span className="text-outline font-display text-3xl font-bold leading-none sm:text-4xl">
           {project.number}
         </span>
 
         <div className="flex flex-wrap justify-end gap-2 text-[11px] uppercase tracking-[0.18em] text-muted">
-          <span className="rounded-full border border-white/10 px-3 py-1.5">
+          <span className="rounded-full border border-hairline/10 px-3 py-1.5">
             {project.category}
           </span>
-          <span className="rounded-full border border-white/10 px-3 py-1.5">
+          <span className="rounded-full border border-hairline/10 px-3 py-1.5">
             {project.status}
           </span>
         </div>
@@ -58,7 +58,7 @@ const ProjectCard = ({
                 key={highlight}
                 className="flex gap-3 text-sm leading-7 text-paper/80"
               >
-                <Plus size={15} className="mt-2 shrink-0 text-accent" />
+                <Plus size={15} className="mt-2 shrink-0 text-accent-text" />
                 <p>{highlight}</p>
               </li>
             ))}
@@ -74,7 +74,7 @@ const ProjectCard = ({
             {project.technologies.map((technology) => (
               <span
                 key={technology}
-                className="rounded-full border border-white/10 px-3.5 py-1.5 text-xs text-paper/75"
+                className="rounded-full border border-hairline/10 px-3.5 py-1.5 text-xs text-paper/75"
               >
                 {technology}
               </span>
@@ -88,7 +88,7 @@ const ProjectCard = ({
                   href={project.githubUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:border-accent/60 hover:text-accent"
+                  className="inline-flex items-center gap-2 rounded-full border border-hairline/15 px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:border-accent/60 hover:text-accent-text"
                 >
                   GitHub
                   <ArrowUpRight size={15} />
@@ -132,7 +132,7 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
           title={
             <>
               Projects that shaped{" "}
-              <span className="font-serif text-accent italic">my craft</span>
+              <span className="font-serif text-accent-text italic">my craft</span>
             </>
           }
           description={`A selection of ${projects.length} professional mobile applications and digital products across workplace management, e-commerce, events, and real-estate domains.`}

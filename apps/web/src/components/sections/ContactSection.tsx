@@ -48,7 +48,7 @@ const ContactSection = ({ profile }: ContactSectionProps) => {
           title={
             <>
               Let's build something{" "}
-              <span className="font-serif text-accent italic">
+              <span className="font-serif text-accent-text italic">
                 extraordinary
               </span>
             </>
@@ -82,10 +82,10 @@ const ContactSection = ({ profile }: ContactSectionProps) => {
             type="button"
             onClick={copyEmail}
             aria-label="Copy email address"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-4 text-sm text-paper transition-colors hover:border-accent/60 hover:text-accent"
+            className="inline-flex items-center gap-2 rounded-full border border-hairline/15 px-5 py-4 text-sm text-paper transition-colors hover:border-accent/60 hover:text-accent-text"
           >
             {copied ? (
-              <Check size={16} className="text-accent" />
+              <Check size={16} className="text-accent-text" />
             ) : (
               <Copy size={16} />
             )}
@@ -118,15 +118,15 @@ const ContactSection = ({ profile }: ContactSectionProps) => {
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="group inline-flex items-center gap-3 rounded-full border border-white/10 px-6 py-3 transition-all duration-300 hover:border-accent/60 hover:bg-accent/5"
+                className="group inline-flex items-center gap-3 rounded-full border border-hairline/10 px-6 py-3 transition-all duration-300 hover:border-accent/60 hover:bg-accent/5"
               >
-                <span className="font-display text-xs font-semibold text-accent">
+                <span className="font-display text-xs font-semibold text-accent-text">
                   {social.mark}
                 </span>
                 <span className="text-sm text-paper/85">{social.label}</span>
                 <ArrowUpRight
                   size={15}
-                  className="text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                  className="text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-text"
                 />
               </a>
             );

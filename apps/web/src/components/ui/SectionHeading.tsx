@@ -29,7 +29,7 @@ const SectionHeading = ({
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className={`mb-5 flex items-center gap-3 ${centered ? "justify-center" : ""}`}
       >
-        <span className="font-display text-sm font-medium text-accent">
+        <span className="font-display text-sm font-medium text-accent-text">
           {index}
         </span>
         <span className="h-px w-8 bg-accent/40" />

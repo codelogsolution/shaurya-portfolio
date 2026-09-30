@@ -74,7 +74,7 @@ const TickerChip = ({
     className={`mx-3 inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border px-5 py-2.5 font-display text-sm font-medium ${
       solid
         ? "border-accent bg-accent text-accent-ink"
-        : "border-white/15 text-paper/80"
+        : "border-hairline/15 text-paper/80"
     }`}
   >
     <span
@@ -109,7 +109,7 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
           title={
             <>
               Tools that ship{" "}
-              <span className="font-serif text-accent italic">products</span>
+              <span className="font-serif text-accent-text italic">products</span>
             </>
           }
           description="A collection of technologies and engineering practices used across mobile, web, backend integration, deployment, and development workflows."
@@ -117,7 +117,7 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
       </div>
 
       {/* Infinite ticker band */}
-      <div className="border-y border-white/10 bg-ink-2/60 py-8">
+      <div className="border-y border-hairline/10 bg-ink-2/60 py-8">
         <Marquee duration={38} gap="0rem">
           {tickerTop.map((label, i) => (
             <TickerChip key={`${label}-${i}`} label={label} solid={i % 4 === 1} />
@@ -152,11 +152,11 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
               }}
             >
               <SpotlightCard className="h-full">
-                <div className="flex h-full flex-col rounded-3xl border border-white/10 bg-ink-2 p-7 transition-colors duration-300 hover:border-white/20">
-                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
+                <div className="flex h-full flex-col rounded-3xl border border-hairline/10 bg-ink-2 p-7 transition-colors duration-300 hover:border-hairline/20">
+                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-hairline/10 bg-hairline/5">
                     <Icon
                       size={20}
-                      className="text-accent"
+                      className="text-accent-text"
                       strokeWidth={1.8}
                       aria-hidden="true"
                     />
@@ -170,11 +170,11 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
                     {group.description}
                   </p>
 
-                  <div className="mt-5 flex flex-wrap gap-2 border-t border-white/5 pt-5">
+                  <div className="mt-5 flex flex-wrap gap-2 border-t border-hairline/5 pt-5">
                     {groupSkills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-paper/75 transition-colors duration-200 hover:border-accent/50 hover:text-accent"
+                        className="rounded-full border border-hairline/10 px-3 py-1.5 text-xs text-paper/75 transition-colors duration-200 hover:border-accent/50 hover:text-accent-text"
                       >
                         {skill}
                       </span>
