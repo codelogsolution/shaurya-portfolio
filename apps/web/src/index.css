@@ -1,17 +1,12 @@
 @import "tailwindcss";
 
-/* ============================================================
-   DESIGN SYSTEM — "Ink & Lime" (2026 editorial-tech aesthetic)
-   Fonts: Clash Display / Satoshi / Instrument Serif (free licenses)
-   ============================================================ */
-
 @theme {
   --color-ink: #07070b;
   --color-ink-2: #0d0d14;
   --color-ink-3: #12121a;
   --color-paper: #f4f4ef;
   --color-muted: #9a9aa5;
-  --color-accent: #a8d523;
+  --color-accent: #97BF1F;
   --color-accent-ink: #101503;
   --color-ai: #60bf20;
   --color-hairline: #ffffff;
@@ -58,7 +53,7 @@
   --color-muted: #5b5c64;
   --color-hairline: #121218;
   --color-accent-text: #4d7006;
-  --color-ai: #5b3fd6;
+  --color-ai: #00820a;
 
   --grid-line: rgb(18 18 24 / 0.05);
   --outline-stroke: rgb(18 18 24 / 0.6);
