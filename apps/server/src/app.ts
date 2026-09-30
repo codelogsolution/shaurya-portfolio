@@ -1,3 +1,4 @@
+import compression from "compression";
 import cors from "cors";
 import express, { type Express } from "express";
 
@@ -10,6 +11,7 @@ import experienceRouter from "./routes/experience.routes.js";
 
 const app: Express = express();
 
+app.use(compression());
 app.use(cors());
 app.use(express.json());
 

@@ -1,100 +1,214 @@
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
-import Logo from "../../assets/favicon.png";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 
 const navItems = [
-  { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
 ];
 
+const mobileItems = [
+  { label: "Home", href: "#home" },
+  ...navItems,
+  { label: "Contact", href: "#contact" },
+];
+
+const sectionIds = [
+  "home",
+  "about",
+  "skills",
+  "experience",
+  "projects",
+  "contact",
+];
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("#home");
+  const frame = useRef(0);
 
-  const handleNavClick = () => {
+  // rAF-throttled scroll spy
+  useEffect(() => {
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const updateActiveSection = () => {
+      const triggerPoint = window.innerHeight * 0.3;
+      let next = "#home";
+
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= triggerPoint) {
+          next = `#${section.id}`;
+        }
+      }
+
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 10
+      ) {
+        next = "#contact";
+      }
+
+      setActiveSection((previous) => (previous === next ? previous : next));
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(frame.current);
+      frame.current = requestAnimationFrame(updateActiveSection);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      cancelAnimationFrame(frame.current);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  // Lock body scroll while mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  const handleNavClick = (href: string) => {
+    setActiveSection(href);
     setIsMenuOpen(false);
   };
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-slate-950/80 backdrop-blur-lg">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+    <header className="pointer-events-none fixed inset-x-0 top-4 z-[110] flex justify-center px-4">
+      <motion.nav
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-auto relative z-10 flex w-full max-w-3xl items-center justify-between rounded-full border border-white/10 bg-ink/70 py-2.5 pl-5 pr-2.5 backdrop-blur-xl"
+      >
         {/* Logo */}
         <a
           href="#home"
-          className="flex items-center gap-3"
-          onClick={handleNavClick}
+          onClick={() => handleNavClick("#home")}
+          className="flex items-center gap-2.5"
         >
           <img
-            src={Logo}
-            alt="Shaurya Yadav"
-            className="h-9 w-auto"
+            src="/favicon.png"
+            alt="Shaurya Yadav logo"
+            className="h-10 w-12 rounded-full"
           />
-
-          {/* <span className="hidden text-xl font-bold tracking-wide text-white sm:block">
-            <span className="text-cyan-400">{"<"}</span>
-             Shauryay
-            <span className="text-cyan-400">{"/>"}</span>
+          {/* <span className="font-display text-sm font-semibold tracking-wide text-paper">
+            Shaurya<span className="text-accent">.</span>
           </span> */}
         </a>
 
-        {/* Desktop Navigation */}
-        <div className="hidden items-center gap-8 md:flex">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-slate-300 transition-colors hover:text-cyan-400"
-            >
-              {item.label}
-            </a>
-          ))}
+        {/* Desktop links */}
+        <div className="hidden items-center gap-1 md:flex">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.href;
 
-          <a
-            href="#contact"
-            className="rounded-full border border-cyan-400 px-5 py-2 text-sm font-medium text-cyan-400 transition-all hover:bg-cyan-400 hover:text-slate-950"
-          >
-            Contact Me
-          </a>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="text-slate-200 md:hidden"
-          onClick={() => setIsMenuOpen((previous) => !previous)}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </nav>
-
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="border-t border-white/10 bg-slate-950 px-6 py-4 md:hidden">
-          <div className="flex flex-col gap-4">
-            {navItems.map((item) => (
+            return (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-slate-300 transition-colors hover:text-cyan-400"
-                onClick={handleNavClick}
+                onClick={() => handleNavClick(item.href)}
+                className={`relative rounded-full px-4 py-2 text-sm transition-colors duration-200 ${
+                  isActive ? "text-accent-ink" : "text-muted hover:text-paper"
+                }`}
               >
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="absolute inset-0 -z-10 rounded-full bg-accent"
+                    transition={{ type: "spring", stiffness: 320, damping: 30 }}
+                  />
+                )}
                 {item.label}
               </a>
-            ))}
-
-            <a
-              href="#contact"
-              className="w-fit rounded-full border border-cyan-400 px-5 py-2 text-sm font-medium text-cyan-400"
-              onClick={handleNavClick}
-            >
-              Contact Me
-            </a>
-          </div>
+            );
+          })}
         </div>
-      )}
+
+        {/* Desktop CTA */}
+        <a
+          href="#contact"
+          onClick={() => handleNavClick("#contact")}
+          className={`hidden rounded-full px-4 py-2 text-sm transition-colors md:block ${
+            activeSection === "#contact"
+              ? "bg-accent text-accent-ink"
+              : "border border-white/15 text-paper hover:border-accent/60 hover:text-accent"
+          }`}
+        >
+          Let's Talk
+        </a>
+
+        {/* Mobile toggle */}
+        <button
+          type="button"
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          onClick={() => setIsMenuOpen((open) => !open)}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-paper md:hidden"
+        >
+          {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
+        </button>
+      </motion.nav>
+
+      {/* Mobile fullscreen menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="pointer-events-auto fixed inset-0 z-0 flex flex-col justify-center bg-ink/95 px-8 backdrop-blur-xl md:hidden"
+          >
+            <motion.div
+              className="flex flex-col"
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={{
+                open: {
+                  transition: { staggerChildren: 0.06, delayChildren: 0.1 },
+                },
+                closed: {
+                  transition: { staggerChildren: 0.03, staggerDirection: -1 },
+                },
+              }}
+            >
+              {mobileItems.map((item, index) => (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => handleNavClick(item.href)}
+                  variants={{
+                    open: { opacity: 1, y: 0 },
+                    closed: { opacity: 0, y: 24 },
+                  }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className={`flex items-baseline gap-4 border-b border-white/5 py-4 ${
+                    activeSection === item.href ? "text-accent" : "text-paper"
+                  }`}
+                >
+                  <span className="font-display text-xs text-muted">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-display text-4xl font-semibold">
+                    {item.label}
+                  </span>
+                </motion.a>
+              ))}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

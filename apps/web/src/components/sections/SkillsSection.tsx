@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import {
   AppWindow,
   Cloud,
@@ -7,10 +8,11 @@ import {
   Settings,
   Smartphone,
 } from "lucide-react";
-import { motion } from "motion/react";
 
 import type { Skills } from "../../types/portfolio";
-import Reveal from "../ui/Reveal";
+import Marquee from "../ui/Marquee";
+import SectionHeading from "../ui/SectionHeading";
+import SpotlightCard from "../ui/SpotlightCard";
 
 type SkillsSectionProps = {
   skills: Skills;
@@ -32,146 +34,157 @@ const skillGroups = [
   {
     key: "backend",
     title: "Backend",
-    description: "Basic backend and REST API knowledge",
+    description: "REST APIs and server-side integration",
     icon: Database,
   },
   {
     key: "firebaseAndData",
     title: "Firebase & Data",
-    description: "Application data, authentication and real-time services",
+    description: "Auth, realtime data and cloud messaging",
     icon: Cloud,
   },
   {
     key: "cicd",
     title: "CI/CD",
-    description: "Basic build automation and release pipeline knowledge",
+    description: "Build automation and release pipelines",
     icon: GitBranch,
   },
   {
     key: "deployment",
     title: "Deployment",
-    description: "Mobile application release and store management",
+    description: "Store release and listing management",
     icon: Rocket,
   },
   {
     key: "toolsAndPractices",
     title: "Tools & Practices",
-    description: "Development workflow and engineering practices",
+    description: "Workflow and engineering practices",
     icon: Settings,
   },
 ] as const;
 
+const TickerChip = ({
+  label,
+  solid = false,
+}: {
+  label: string;
+  solid?: boolean;
+}) => (
+  <span
+    className={`mx-3 inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border px-5 py-2.5 font-display text-sm font-medium ${
+      solid
+        ? "border-accent bg-accent text-accent-ink"
+        : "border-white/15 text-paper/80"
+    }`}
+  >
+    <span
+      className={`h-1.5 w-1.5 rounded-full ${
+        solid ? "bg-accent-ink" : "bg-accent"
+      }`}
+    />
+    {label}
+  </span>
+);
+
 const SkillsSection = ({ skills }: SkillsSectionProps) => {
+  const tickerTop = [
+    ...skills.mobileDevelopment,
+    ...skills.frontend,
+    ...skills.backend,
+  ];
+
+  const tickerBottom = [
+    ...skills.firebaseAndData,
+    ...skills.cicd,
+    ...skills.deployment,
+    ...skills.toolsAndPractices,
+  ];
+
   return (
-    <section
-      id="skills"
-      className="relative overflow-hidden bg-slate-950 px-6 py-24 text-white lg:px-8"
-    >
-      {/* Background glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/4 top-20 h-72 w-72 rounded-full bg-cyan-400/5 blur-3xl"
-      />
+    <section id="skills" className="relative bg-ink py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        <SectionHeading
+          index="02"
+          eyebrow="Capabilities"
+          title={
+            <>
+              Tools that ship{" "}
+              <span className="font-serif text-accent italic">products</span>
+            </>
+          }
+          description="A collection of technologies and engineering practices used across mobile, web, backend integration, deployment, and development workflows."
+        />
+      </div>
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-20 right-1/4 h-72 w-72 rounded-full bg-blue-500/5 blur-3xl"
-      />
+      {/* Infinite ticker band */}
+      <div className="border-y border-white/10 bg-ink-2/60 py-8">
+        <Marquee duration={38} gap="0rem">
+          {tickerTop.map((label, i) => (
+            <TickerChip key={`${label}-${i}`} label={label} solid={i % 4 === 1} />
+          ))}
+        </Marquee>
 
-      <div className="relative mx-auto max-w-7xl">
-        {/* Section heading */}
-        <Reveal>
-          <div className="mb-12">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">
-              Technical Skills
-            </p>
+        <div className="mt-4" />
 
-            <h2 className="text-3xl font-bold sm:text-4xl">
-              Technologies I work with
-            </h2>
+        <Marquee duration={46} reverse gap="0rem">
+          {tickerBottom.map((label, i) => (
+            <TickerChip key={`${label}-${i}`} label={label} solid={i % 5 === 2} />
+          ))}
+        </Marquee>
+      </div>
 
-            <p className="mt-4 max-w-2xl text-slate-400">
-              A collection of technologies and engineering practices I use
-              across mobile, web, backend integration, deployment, and
-              development workflows.
-            </p>
-          </div>
-        </Reveal>
+      {/* Skill groups */}
+      <div className="mx-auto mt-16 grid max-w-6xl gap-4 px-6 sm:mt-20 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
+        {skillGroups.map((group, index) => {
+          const Icon = group.icon;
+          const groupSkills = skills[group.key];
 
-        {/* Skills */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {skillGroups.map((group, index) => {
-            const Icon = group.icon;
-            const groupSkills = skills[group.key];
-
-            return (
-              <Reveal
-                key={group.key}
-                delay={index * 0.08}
-                y={30}
-              >
-                <motion.article
-                  whileHover={{
-                    y: -6,
-                  }}
-                  transition={{
-                    duration: 0.25,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="glass-panel glass-panel-hover glass-highlight glow-cyan h-full rounded-2xl p-6"
-                >
-                  {/* Icon */}
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10">
+          return (
+            <motion.div
+              key={group.key}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.6,
+                delay: (index % 3) * 0.08,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <SpotlightCard className="h-full">
+                <div className="flex h-full flex-col rounded-3xl border border-white/10 bg-ink-2 p-7 transition-colors duration-300 hover:border-white/20">
+                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
                     <Icon
-                      size={24}
-                      className="text-cyan-400"
+                      size={20}
+                      className="text-accent"
                       strokeWidth={1.8}
+                      aria-hidden="true"
                     />
                   </div>
 
-                  {/* Title */}
-                  <h3 className="text-xl font-semibold text-white">
+                  <h3 className="font-display text-lg font-semibold text-paper">
                     {group.title}
                   </h3>
 
-                  {/* Description */}
-                  <p className="mt-2 text-sm leading-6 text-slate-400">
+                  <p className="mt-1.5 text-sm text-muted">
                     {group.description}
                   </p>
 
-                  {/* Skills */}
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {groupSkills.map((skill, skillIndex) => (
-                      <motion.span
+                  <div className="mt-5 flex flex-wrap gap-2 border-t border-white/5 pt-5">
+                    {groupSkills.map((skill) => (
+                      <span
                         key={skill}
-                        initial={{
-                          opacity: 0,
-                          scale: 0.92,
-                        }}
-                        whileInView={{
-                          opacity: 1,
-                          scale: 1,
-                        }}
-                        viewport={{
-                          once: true,
-                          amount: 0.2,
-                        }}
-                        transition={{
-                          duration: 0.3,
-                          delay:
-                            index * 0.08 + skillIndex * 0.025,
-                        }}
-                        className="rounded-full border border-slate-700/80 bg-slate-900/70 px-3 py-1.5 text-sm text-slate-300 transition-colors duration-200 hover:border-cyan-400/40 hover:text-cyan-300"
+                        className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-paper/75 transition-colors duration-200 hover:border-accent/50 hover:text-accent"
                       >
                         {skill}
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
-                </motion.article>
-              </Reveal>
-            );
-          })}
-        </div>
+                </div>
+              </SpotlightCard>
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );

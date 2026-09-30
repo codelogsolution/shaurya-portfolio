@@ -1,85 +1,140 @@
-import {
-    Mail,
-    ExternalLink,
-} from "lucide-react";
+import { ArrowUpRight, Check, Copy, Mail } from "lucide-react";
+import { motion } from "motion/react";
+import { useState } from "react";
+
 import type { Profile } from "../../types/portfolio";
+import Magnetic from "../ui/Magnetic";
+import SectionHeading from "../ui/SectionHeading";
 
 type ContactSectionProps = {
-    profile: Profile;
+  profile: Profile;
 };
 
+const socials = [
+  { key: "linkedin", label: "LinkedIn", mark: "in" },
+  { key: "github", label: "GitHub", mark: "GH" },
+  { key: "leetcode", label: "LeetCode", mark: "LC" },
+] as const;
+
 const ContactSection = ({ profile }: ContactSectionProps) => {
-    return (
-        <section
-            id="contact"
-            className="bg-slate-900 px-6 py-24 text-white lg:px-8"
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.contact.email);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <section
+      id="contact"
+      className="relative overflow-hidden bg-ink px-6 py-24 sm:py-32 lg:px-8"
+    >
+      {/* Ambient glow */}
+      <div
+        aria-hidden="true"
+        className="aurora aurora--a left-1/2 top-1/2 h-[420px] w-[620px] -translate-x-1/2 -translate-y-1/2 bg-accent/[0.07]"
+      />
+
+      <div className="relative mx-auto max-w-5xl text-center">
+        <SectionHeading
+          index="05"
+          eyebrow="Contact"
+          align="center"
+          title={
+            <>
+              Let's build something{" "}
+              <span className="font-serif text-accent italic">
+                extraordinary
+              </span>
+            </>
+          }
+          description="Open to senior React Native roles, AI-curious product teams, and select freelance collaborations. The inbox is always open."
+        />
+
+        {/* Email row */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-wrap items-center justify-center gap-4"
         >
-            <div className="mx-auto max-w-4xl text-center">
-                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">
-                    Contact
-                </p>
+          <Magnetic strength={0.25}>
+            <a
+              href={`mailto:${profile.contact.email}`}
+              className="group inline-flex items-center gap-3 rounded-full bg-accent px-8 py-4 font-display text-base font-semibold text-accent-ink sm:text-lg"
+            >
+              <Mail size={20} aria-hidden="true" />
+              {profile.contact.email}
+              <ArrowUpRight
+                size={18}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
+          </Magnetic>
 
-                <h2 className="text-3xl font-bold sm:text-4xl">
-                    Let's build something meaningful
-                </h2>
+          <button
+            type="button"
+            onClick={copyEmail}
+            aria-label="Copy email address"
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-4 text-sm text-paper transition-colors hover:border-accent/60 hover:text-accent"
+          >
+            {copied ? (
+              <Check size={16} className="text-accent" />
+            ) : (
+              <Copy size={16} />
+            )}
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        </motion.div>
 
-                <p className="mx-auto mt-5 max-w-2xl leading-8 text-slate-400">
-                    I am open to professional opportunities, collaborations, and
-                    interesting technology projects.
-                </p>
+        {/* Socials */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{
+            duration: 0.6,
+            delay: 0.1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="mt-12 flex flex-wrap justify-center gap-3"
+        >
+          {socials.map((social) => {
+            const href = profile.contact[social.key];
 
-                <div className="mt-10 flex flex-wrap justify-center gap-4">
-                    {profile.contact.email && (
-                        <a
-                            href={`mailto:${profile.contact.email}`}
-                            className="inline-flex items-center gap-2 rounded-full bg-cyan-400 px-5 py-3 font-semibold text-slate-950"
-                        >
-                            <Mail size={18} />
-                            Email Me
-                        </a>
-                    )}
+            if (!href) {
+              return null;
+            }
 
-                    {profile.contact.linkedin && (
-                        <a
-                            href={profile.contact.linkedin}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-5 py-3 text-slate-200 transition hover:border-cyan-400 hover:text-cyan-400"
-                        >
-                            <span className="font-bold">in</span>
-                            LinkedIn
-                            <ExternalLink size={16} />
-                        </a>
-                    )}
-
-                    {profile.contact.github && (
-                        <a
-                            href={profile.contact.github}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-5 py-3 text-slate-200 transition hover:border-cyan-400 hover:text-cyan-400"
-                        >
-                            <span className="font-bold">GH</span>
-                            GitHub
-                            <ExternalLink size={16} />
-                        </a>
-                    )}
-                    {profile.contact.leetcode && (
-                        <a
-                            href={profile.contact.leetcode}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-5 py-3 text-slate-200 transition hover:border-cyan-400 hover:text-cyan-400"
-                        >
-                            <span className="font-bold">LC</span>
-                            Leetcode
-                            <ExternalLink size={16} />
-                        </a>
-                    )}
-                </div>
-            </div>
-        </section>
-    );
+            return (
+              <a
+                key={social.key}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-3 rounded-full border border-white/10 px-6 py-3 transition-all duration-300 hover:border-accent/60 hover:bg-accent/5"
+              >
+                <span className="font-display text-xs font-semibold text-accent">
+                  {social.mark}
+                </span>
+                <span className="text-sm text-paper/85">{social.label}</span>
+                <ArrowUpRight
+                  size={15}
+                  className="text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                />
+              </a>
+            );
+          })}
+        </motion.div>
+      </div>
+    </section>
+  );
 };
 
 export default ContactSection;

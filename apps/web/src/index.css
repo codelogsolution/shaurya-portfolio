@@ -1,24 +1,51 @@
 @import "tailwindcss";
 
+/* ============================================================
+   DESIGN SYSTEM — "Ink & Lime" (2026 editorial-tech aesthetic)
+   Fonts: Clash Display / Satoshi / Instrument Serif (free licenses)
+   ============================================================ */
+
+@theme {
+  --color-ink: #07070b;
+  --color-ink-2: #0d0d14;
+  --color-ink-3: #12121a;
+  --color-paper: #f4f4ef;
+  --color-muted: #9a9aa5;
+  --color-accent: #c8f542;
+  --color-accent-ink: #101503;
+  --color-ai: #8b7cff;
+
+  --font-display: "Clash Display", "Space Grotesk", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-body: "Satoshi", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-accent: "Instrument Serif", Georgia, serif;
+}
+
 :root {
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-  color: #f8fafc;
-  background: #08090d;
+  color: #f4f4ef;
+  background: #07070b;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  --navbar-height: 104px;
 }
 
 html {
   scroll-behavior: smooth;
-  background: #08090d;
+  scroll-padding-top: var(--navbar-height);
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #08090d;
+  background: #07070b;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+body.intro-lock {
+  overflow: hidden;
 }
 
 * {
@@ -28,31 +55,280 @@ body {
 button,
 a {
   -webkit-tap-highlight-color: transparent;
-}
-
-button,
-a {
   cursor: pointer;
 }
 
 ::selection {
-  background: rgba(129, 140, 248, 0.35);
-  color: #ffffff;
+  background: #c8f542;
+  color: #101503;
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 9px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #08090d;
+  background: #07070b;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #303344;
+  background: #26262f;
   border-radius: 999px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #4f46e5;
+  background: #c8f542;
+}
+
+/* ---------- Film grain overlay ---------- */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ---------- Aurora / ambient background ---------- */
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(60px, -40px, 0) scale(1.15);
+  }
+}
+
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.1);
+  }
+  50% {
+    transform: translate3d(-70px, 50px, 0) scale(0.95);
+  }
+}
+
+.aurora--a {
+  animation: drift-a 14s ease-in-out infinite;
+}
+
+.aurora--b {
+  animation: drift-b 18s ease-in-out infinite;
+}
+
+/* ---------- Blueprint grid lines ---------- */
+.grid-lines {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 30%,
+    black 30%,
+    transparent 75%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 30%,
+    black 30%,
+    transparent 75%
+  );
+}
+
+/* ---------- Outlined display text ---------- */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(244 244 239 / 0.55);
+}
+
+.text-outline-accent {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(200 245 66 / 0.75);
+}
+
+.text-outline-faint {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(244 244 239 / 0.14);
+}
+
+/* ---------- Marquee ---------- */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: var(--marquee-gap, 3rem);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+.marquee__track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-around;
+  gap: var(--marquee-gap, 3rem);
+  min-width: 100%;
+  animation: marquee-scroll var(--marquee-duration, 36s) linear infinite;
+}
+
+.marquee--reverse .marquee__track {
+  animation-direction: reverse;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* ---------- Spotlight card ---------- */
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  background: radial-gradient(
+    340px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(200 245 66 / 0.08),
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* ---------- Shimmer underline for hover rows ---------- */
+.shimmer-line {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(200 245 66 / 0.15),
+    transparent
+  );
+  transition: transform 0.8s ease;
+  pointer-events: none;
+}
+
+.shimmer-line:hover::after {
+  transform: translateX(100%);
+}
+
+/* ---------- Pulsing availability dot ---------- */
+@keyframes ping-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.ping-soft {
+  animation: ping-soft 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ---------- Custom cursor ---------- */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  border-radius: 9999px;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: #c8f542;
+  margin: -4px 0 0 -4px;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgb(200 245 66 / 0.4);
+  margin: -18px 0 0 -18px;
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    margin 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.cursor-ring--active {
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  border-color: rgb(200 245 66 / 0.8);
+  background: rgb(200 245 66 / 0.06);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,118 +1,178 @@
-import { ArrowDown, MapPin, Sparkles } from "lucide-react";
+import { motion } from "motion/react";
+import { ArrowDown, ArrowUpRight, MapPin } from "lucide-react";
+
 import type { Profile } from "../../types/portfolio";
+import Counter from "../ui/Counter";
+import Magnetic from "../ui/Magnetic";
+import ScrambleText from "../ui/ScrambleText";
 
 type HeroSectionProps = {
   profile: Profile;
+  start: boolean;
 };
 
-const HeroSection = ({ profile }: HeroSectionProps) => {
+const ROLES = ["React Native Developer", "React.js Engineer", "AI Explorer"];
+
+const container = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.09, delayChildren: 0.05 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 44 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
+const HeroSection = ({ profile, start }: HeroSectionProps) => {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden bg-slate-950 px-6 py-32 text-white lg:px-8"
+      className="relative flex min-h-screen items-center overflow-hidden bg-ink px-6 pb-24 pt-36 text-paper lg:px-8"
     >
-      {/* Background Decorations */}
-      <div className="absolute left-[-120px] top-[-120px] h-80 w-80 rounded-full bg-cyan-500/10 blur-3xl" />
+      {/* Ambient background: aurora + blueprint grid */}
+      <div
+        aria-hidden="true"
+        className="aurora aurora--a left-[-180px] top-[-120px] h-[480px] w-[480px] bg-accent/10"
+      />
+      <div
+        aria-hidden="true"
+        className="aurora aurora--b bottom-[-160px] right-[-140px] h-[520px] w-[520px] bg-ai/10"
+      />
+      <div aria-hidden="true" className="grid-lines absolute inset-0" />
 
-      <div className="absolute bottom-[-150px] right-[-100px] h-96 w-96 rounded-full bg-blue-600/10 blur-3xl" />
+      {/* Vertical side label */}
+      <div className="absolute right-6 top-1/2 hidden -translate-y-1/2 rotate-90 lg:block">
+        <span className="font-display text-[11px] uppercase tracking-[0.5em] text-muted/60">
+          Portfolio — ©2026
+        </span>
+      </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-16 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
-        {/* Left Content */}
-        <div>
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm text-cyan-300">
-            <Sparkles size={16} />
-            Available for professional opportunities
-          </div>
-
-          <p className="mb-4 text-lg font-medium text-cyan-400">
-            Hello, I am
-          </p>
-
-          <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-7xl">
-            {profile.name}
-          </h1>
-
-          <h2 className="mt-5 text-2xl font-semibold text-slate-300 sm:text-3xl">
-            {profile.role}
-          </h2>
-
-          <p className="mt-6 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">
-            {profile.summary}
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-5 text-sm text-slate-300">
-            <span className="flex items-center gap-2">
-              <span className="text-cyan-400">✦</span>
-              {profile.experience} Experience
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate={start ? "show" : "hidden"}
+        className="relative z-10 mx-auto w-full max-w-6xl"
+      >
+        {/* Availability pill */}
+        <motion.div variants={item} className="mb-8">
+          <span className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-paper/80 backdrop-blur">
+            <span className="relative flex h-2 w-2">
+              <span className="ping-soft absolute inline-flex h-full w-full rounded-full bg-accent" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
             </span>
+            Available for new opportunities
+          </span>
+        </motion.div>
 
-            <span className="flex items-center gap-2">
-              <MapPin size={17} className="text-cyan-400" />
-              {profile.location}
-            </span>
-          </div>
+        {/* Name — kinetic editorial type */}
+        <motion.h1
+          variants={item}
+          className="font-display text-[clamp(3.4rem,11vw,9rem)] font-semibold uppercase leading-[0.92] tracking-tight"
+        >
+          <span className="block">{profile.name.split(" ")[0]}</span>
+          <span className="text-outline block">
+            {profile.name.split(" ").slice(1).join(" ")}
+          </span>
+        </motion.h1>
 
-          {/* Action Buttons */}
-          <div className="mt-10 flex flex-wrap gap-4">
+        {/* Role — scramble rotation */}
+        <motion.div
+          variants={item}
+          className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-xl sm:text-2xl"
+        >
+          <span className="text-muted">Senior</span>
+          <ScrambleText
+            words={ROLES}
+            className="font-display font-medium text-accent"
+          />
+          <span className="inline-flex items-center gap-1.5 text-sm text-muted">
+            <MapPin size={14} className="text-accent" />
+            {profile.location}
+          </span>
+        </motion.div>
+
+        {/* Summary */}
+        <motion.p
+          variants={item}
+          className="mt-6 max-w-xl leading-8 text-muted"
+        >
+          {profile.summary}
+        </motion.p>
+
+        {/* CTAs — magnetic */}
+        <motion.div variants={item} className="mt-10 flex flex-wrap gap-4">
+          <Magnetic>
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 rounded-full bg-cyan-400 px-6 py-3 font-semibold text-slate-950 transition-all hover:bg-cyan-300"
+              className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wide text-accent-ink"
             >
               View Projects
-              <ArrowDown size={18} />
+              <ArrowDown
+                size={16}
+                className="transition-transform duration-300 group-hover:translate-y-0.5"
+              />
             </a>
+          </Magnetic>
 
+          <Magnetic>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-600 px-6 py-3 font-semibold text-white transition-all hover:border-cyan-400 hover:text-cyan-400"
+              className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-wide text-paper transition-colors hover:border-accent/60 hover:text-accent"
             >
-              Contact Me
+              Get in Touch
+              <ArrowUpRight
+                size={16}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
             </a>
-          </div>
-        </div>
-
-        {/* Right Profile Card */}
-        <div className="flex justify-center lg:justify-end">
-          <div className="relative w-full max-w-sm">
-            <div className="absolute inset-0 rounded-3xl bg-cyan-400/20 blur-2xl" />
-
-            <div className="relative rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl">
-              <div className="mb-8 flex items-center justify-between">
-                <span className="text-sm font-medium text-slate-400">
-                  Developer Profile
-                </span>
-
-                <span className="h-3 w-3 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/50" />
-              </div>
-
-              <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 text-4xl font-bold text-slate-950">
-                SY
-              </div>
-
-              <h3 className="mt-8 text-2xl font-bold">
-                React Native
-                <br />
-                <span className="text-cyan-400">Developer</span>
-              </h3>
-
-              <p className="mt-4 text-sm leading-7 text-slate-400">
-                Building mobile applications, web experiences, and
-                AI-powered solutions.
+          </Magnetic>
+        </motion.div>
+        {/* Stats row */}
+        <motion.div
+          variants={item}
+          className="mt-14 grid grid-cols-3 gap-6 border-t border-white/10 pt-7 sm:max-w-xl"
+        >
+          {[
+            { value: 5.8, suffix: "+", label: "Years Experience" },
+            { value: 10, suffix: "+", label: "Apps Shipped" },
+            { value: 6, suffix: "+", label: "Store Releases" },
+          ].map((stat) => (
+            <div key={stat.label}>
+              <Counter
+                to={stat.value}
+                suffix={stat.suffix}
+                className="font-display text-3xl font-semibold text-paper sm:text-4xl"
+              />
+              <p className="mt-1.5 text-xs uppercase tracking-wider text-muted">
+                {stat.label}
               </p>
-
-              <div className="mt-8 border-t border-white/10 pt-6">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 transition-colors hover:text-cyan-300"
-                >
-                  Let's connect
-                  <ArrowDown size={16} className="-rotate-90" />
-                </a>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
+          ))}
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: start ? 1 : 0 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex"
+      >
+        <span className="text-[10px] uppercase tracking-[0.3em] text-muted">
+          Scroll
+        </span>
+        <motion.span
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          className="h-8 w-px bg-gradient-to-b from-accent to-transparent"
+        />
+      </motion.div>
     </section>
   );
 };

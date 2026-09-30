@@ -35,7 +35,6 @@ export const experience = [
       "Biometric Authentication",
       "Firebase",
       "REST APIs",
-      "Offline Storage",
       "React Native Keychain",
       "Pen Testing",
       "CI/CD",
